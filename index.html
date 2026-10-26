@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Sorpresa de cumpleaños para Andreína." />
+    <title>Felices 34 años, Andreína ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="page-glow"></div>
+    <div class="ambient-circles" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand-mark" aria-label="Felices 34 años">34</div>
+      <div class="music-panel" aria-live="polite">
+        <button id="music-toggle" class="pill-button" type="button" aria-label="Reproducir música">
+          ♪ Música
+        </button>
+        <label class="volume-wrap" for="music-volume">
+          <span>Vol.</span>
+          <input id="music-volume" type="range" min="0" max="1" step="0.05" value="0.6" aria-label="Ajustar volumen" />
+        </label>
+      </div>
+      <div class="reading-progress" aria-label="Progreso de la sorpresa">
+        <span id="reading-progress-label">Inicio</span>
+        <div class="reading-progress-track" role="progressbar" aria-label="Progreso de la sorpresa" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span id="reading-progress-fill"></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="experience-shell">
+      <section id="scanner" class="section" aria-labelledby="scanner-title" data-step="scanner">
+        <div class="scanner-layout">
+          <div class="scanner-panel" aria-live="polite">
+            <div class="sg-glow"></div>
+            <div class="fingerprint-wrap" aria-hidden="true">
+              <div class="scan-ring ring-1"></div>
+              <div class="scan-ring ring-2"></div>
+              <div class="scan-ring ring-3"></div>
+              <svg class="fingerprint" viewBox="0 0 200 260" role="img" aria-label="Huella dactilar luminosa">
+                <path d="M82 18c-9 9-18 23-21 39-3 16 2 35 9 49 5 12 6 24 1 35-5 12-14 19-21 30-12 18-12 42-4 62 10 23 33 38 58 43 17 4 40 0 55-12 15-12 26-31 25-50-1-17-9-31-15-45-7-17-8-34-1-51 7-17 18-31 22-49 4-18-1-39-17-53-17-15-44-21-68-16-10 2-20 8-23 17z" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M95 63c-3 9-2 18 0 27 3 12 10 20 11 32 2 12-3 23-12 33-8 9-19 14-19 28 0 8 6 16 14 19 14 6 31 2 41-10 12-13 12-32 6-47-4-10-10-19-8-31 3-14 18-24 27-36 9-14 7-32-3-46-8-11-21-18-32-19-12 0-22 2-25 10z" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+                <path d="M79 95c5 0 9 4 9 9 0 5-4 9-9 9-5 0-9-4-9-9s4-9 9-9zm28-18c5 0 9 4 9 9 0 5-4 9-9 9-5 0-9-4-9-9s4-9 9-9zm28 18c5 0 9 4 9 9 0 5-4 9-9 9-5 0-9-4-9-9s4-9 9-9zm-25 38c5 0 9 4 9 9 0 5-4 9-9 9-5 0-9-4-9-9s4-9 9-9zm33-9c5 0 9 4 9 9 0 5-4 9-9 9-5 0-9-4-9-9s4-9 9-9z" fill="currentColor" opacity="0.8"/>
+              </svg>
+            </div>
+
+            <div class="scanner-content">
+              <p class="eyebrow">Modo de acceso</p>
+              <h1 id="scanner-title">Tengo una sorpresa para ti, mi amor</h1>
+              <p class="subtitle">Solo tú puedes descubrir lo que he preparado.</p>
+              <p class="instruction">Mantén pulsado para desbloquear</p>
+              <div class="scan-meter" aria-label="Progreso de desbloqueo">
+                <div id="scan-fill" class="scan-fill"></div>
+              </div>
+              <div class="scan-status-row">
+                <span id="scan-status">0%</span>
+                <span id="scan-message">Listo para iniciar</span>
+              </div>
+              <div class="scanner-actions">
+                <button id="unlock-button" class="primary-button" type="button">Desbloquear</button>
+                <button id="cancel-button" class="secondary-button" type="button">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="reveal" class="section" aria-labelledby="reveal-title" data-step="reveal">
+        <div class="hero-card reveal-card">
+          <div class="confetti-layer" aria-hidden="true"></div>
+          <div class="sparkles" aria-hidden="true"></div>
+          <p class="eyebrow">Desbloqueado</p>
+          <h2 id="reveal-title">¡Felices 34 años, mi Andreína! 🎂❤️</h2>
+          <p class="lead-text">
+            Hoy es un día muy especial porque celebramos la vida de una mujer maravillosa. Quiero que recuerdes lo importante que eres, lo mucho que vales y toda la felicidad que mereces. Me siento muy afortunado de compartir mi vida contigo y de poder celebrar un año más de tu hermosa existencia.
+          </p>
+          <div class="birthday-cake-mini" aria-hidden="true">
+            <div class="cake-mini-top"></div>
+            <div class="cake-mini-base"></div>
+            <div class="cake-flame flame-one"></div>
+            <div class="cake-flame flame-two"></div>
+            <div class="cake-flame flame-three"></div>
+          </div>
+          <div class="name-badge">Andreína</div>
+          <a class="primary-button next-button" href="#welcome">Continuar, mi amor ❤️</a>
+        </div>
+      </section>
+
+      <section id="welcome" class="section" aria-labelledby="welcome-title" data-step="welcome">
+        <div class="content-card welcome-card">
+          <p class="eyebrow">Un regalo hecho para ti</p>
+          <h2 id="welcome-title">Cada detalle guarda un poquito de mi amor</h2>
+          <p class="lead-text">Mi amor, he preparado algo muy especial para ti. Esta pequeña sorpresa está hecha con todo mi corazón. Sigue a tu ritmo; cada sección es una forma más de celebrar lo maravillosa que eres.</p>
+          <div class="nav-row">
+            <a class="primary-button next-button" href="#countdown">Descubrir más ❤️</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="countdown" class="section" data-step="countdown">
+        <div class="content-card">
+          <p class="eyebrow">Cuenta regresiva</p>
+          <h2>Celebrando a la mujer más especial</h2>
+          <div id="countdown-display" class="countdown-grid" aria-live="polite"></div>
+          <p id="countdown-message" class="countdown-message">Estamos contando cada segundo hasta tu día.</p>
+          <div class="nav-row">
+            <a class="secondary-button back-button" href="#welcome">Anterior</a>
+            <a class="primary-button next-button" href="#reasons">Siguiente</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="reasons" class="section" data-step="reasons">
+        <div class="content-card">
+          <p class="eyebrow">34 razones para sonreír</p>
+          <h2>34 razones para celebrar a una mujer maravillosa</h2>
+          <div id="reasons-grid" class="reasons-grid" aria-live="polite"></div>
+          <p class="final-reasons-line">Y si pudiera pedir un deseo, sería seguir compartiendo muchos momentos hermosos contigo. ❤️</p>
+          <div class="nav-row">
+            <a class="secondary-button back-button" href="#countdown">Anterior</a>
+            <a class="primary-button next-button" href="#gallery">Siguiente</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="section" data-step="gallery">
+        <div class="content-card">
+          <p class="eyebrow">Galería</p>
+          <h2>Pequeños recuerdos, grandes sonrisas</h2>
+          <div id="gallery-grid" class="gallery-grid" aria-live="polite"></div>
+          <div class="nav-row">
+            <a class="secondary-button back-button" href="#reasons">Anterior</a>
+            <a class="primary-button next-button" href="#timeline">Siguiente</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="timeline" class="section" data-step="timeline">
+        <div class="content-card">
+          <p class="eyebrow">Recuerdos</p>
+          <h2>Pequeños momentos, grandes recuerdos ❤️</h2>
+          <div id="timeline-list" class="timeline-list" aria-live="polite"></div>
+          <div class="nav-row">
+            <a class="secondary-button back-button" href="#gallery">Anterior</a>
+            <a class="primary-button next-button" href="#letter">Siguiente</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="letter" class="section" data-step="letter">
+        <div class="content-card letter-wrap">
+          <p class="eyebrow">Carta especial</p>
+          <h2>Mi amor, tienes una carta especial esperándote</h2>
+          <button id="envelope-button" class="envelope" type="button" aria-expanded="false" aria-controls="letter-opened">
+            <span class="envelope-flap"></span>
+            <span class="envelope-heart">❤</span>
+          </button>
+          <div id="letter-opened" class="letter-card" aria-live="polite">
+            <div class="letter-header">
+              <h3>Para mi Andreína, con todo mi corazón ❤️</h3>
+            </div>
+            <div id="letter-content" class="letter-content"></div>
+            <p class="signature text-signature">Con todo mi amor, tu novio. 💗</p>
+          </div>
+          <div class="nav-row">
+            <a class="secondary-button back-button" href="#timeline">Anterior</a>
+            <a class="primary-button next-button" href="#song">Escuchar nuestra canción</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="song" class="section" aria-labelledby="song-title" data-step="song">
+        <div class="content-card song-card">
+          <p class="eyebrow">Una canción para ti</p>
+          <h2 id="song-title">Que la música acompañe este momento</h2>
+          <p class="lead-text">Una melodía especial para hacer una pausa, sonreír y sentir todo el cariño que va en este regalo.</p>
+          <div class="song-player">
+            <span class="song-note" aria-hidden="true">♫</span>
+            <button id="music-section-toggle" class="primary-button" type="button" aria-label="Reproducir música">Reproducir canción ❤️</button>
+          </div>
+          <div class="nav-row">
+            <a class="secondary-button back-button" href="#letter">Volver a la carta</a>
+            <a class="primary-button next-button" href="#cake">Continuar</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="cake" class="section" data-step="cake">
+        <div class="content-card cake-card">
+          <p class="eyebrow">Pastel</p>
+          <h2>Que se haga el deseo</h2>
+          <div class="cake-scene" aria-live="polite">
+            <div class="cake-wrap">
+              <div class="cake-tier tier-top"></div>
+              <div class="cake-tier tier-middle"></div>
+              <div class="cake-tier tier-bottom"></div>
+              <div class="cake-icing icing-top"></div>
+              <div class="cake-icing icing-middle"></div>
+              <div class="cake-icing icing-bottom"></div>
+              <div class="cake-candle candle1"><span class="flame"></span></div>
+              <div class="cake-candle candle2"><span class="flame"></span></div>
+              <div class="cake-candle candle3"><span class="flame"></span></div>
+              <div class="cake-candle candle4"><span class="flame"></span></div>
+            </div>
+          </div>
+          <p id="cake-message" class="cake-message">
+            Que tus 34 años estén llenos de amor, felicidad, salud y sueños cumplidos. ¡Te mereces todo lo bonito del mundo, mi vida! 🎂❤️
+          </p>
+          <div class="cake-actions">
+            <button id="wish-button" class="secondary-button" type="button">Pedir un deseo</button>
+            <button id="blow-button" class="primary-button" type="button">Soplar las velitas</button>
+          </div>
+          <div class="nav-row">
+            <a class="secondary-button back-button" href="#song">Anterior</a>
+            <a class="primary-button next-button" href="#final">Siguiente</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="final" class="section" data-step="final">
+        <div class="hero-card final-card">
+          <div class="stars-layer" aria-hidden="true"></div>
+          <p class="eyebrow">Final</p>
+          <h2>Hoy celebramos tus 34 años, mi amor, pero yo celebro cada día la suerte de tenerte en mi vida.</h2>
+          <p class="lead-text">Feliz cumpleaños, Andreína. ❤️</p>
+          <p class="lead-text">Que este nuevo año te acerque a todos tus sueños y te regale tantas sonrisas como las que tú me regalas a mí.</p>
+          <p class="signature final-signature">Con todo mi amor, hoy y siempre. 💗</p>
+          <div class="final-actions">
+            <a id="repeat-button" class="secondary-button" href="#scanner">Volver al inicio</a>
+            <button id="share-button" class="primary-button" type="button">Compartir</button>
+            <button id="copy-link-button" class="secondary-button" type="button">Copiar enlace</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="gallery-modal" class="gallery-modal" aria-hidden="true">
+      <div class="gallery-modal-backdrop" data-close-modal="true"></div>
+      <div class="gallery-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title">
+        <button id="gallery-close" class="modal-close" type="button" aria-label="Cerrar visor">×</button>
+        <img id="gallery-modal-image" src="" alt="" />
+        <div class="gallery-modal-content">
+          <h3 id="gallery-modal-title"></h3>
+          <p id="gallery-modal-description"></p>
+        </div>
+        <div class="gallery-modal-actions">
+          <button id="gallery-prev" class="secondary-button" type="button">Anterior</button>
+          <button id="gallery-next" class="primary-button" type="button">Siguiente</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/petals.js"></script>
+    <script src="js/scanner.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/reasons.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/letter.js"></script>
+    <script src="js/cake.js"></script>
+    <script src="js/music.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

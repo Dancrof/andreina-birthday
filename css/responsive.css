@@ -1,0 +1,22 @@
+@media (min-width: 768px) {
+  .nav-row,
+  .final-actions,
+  .scanner-actions,
+  .cake-actions {
+    justify-content: space-between;
+  }
+
+  .reasons-grid {
+    grid-template-columns: repeat(4, minmax(145px, 1fr));
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+  }
+
+  .timeline-list {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
