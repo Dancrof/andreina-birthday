@@ -93,19 +93,19 @@
      */
     gallery: [
       {
-        src: "assets/images/foto-1.jpg",
-        caption: "Pie de foto editable: describe este recuerdo con tus palabras.",
-        alt: "Fotografía personal 1. Sustituye foto-1.jpg",
+        src: "assets/images/IMG-20251213-WA0054.jpg",
+        caption: "",
+        alt: "Fotografía de nuestros recuerdos, 1",
       },
       {
-        src: "assets/images/foto-2.jpg",
-        caption: "Pie de foto editable: un instante que merece quedarse.",
-        alt: "Fotografía personal 2. Sustituye foto-2.jpg",
+        src: "assets/images/IMG-20260101-WA0030.jpg",
+        caption: "",
+        alt: "Fotografía de nuestros recuerdos, 2",
       },
       {
-        src: "assets/images/foto-3.jpg",
-        caption: "Pie de foto editable: guarda aquí el significado de esta imagen.",
-        alt: "Fotografía personal 3. Sustituye foto-3.jpg",
+        src: "assets/images/IMG-20260101-WA0031.jpg",
+        caption: "",
+        alt: "Fotografía de nuestros recuerdos, 3",
       },
       {
         src: "assets/images/foto-4.jpg",
@@ -171,36 +171,44 @@
     });
   }
 
-  function calendarDiff(from, to) {
-    let years = to.getFullYear() - from.getFullYear();
-    let months = to.getMonth() - from.getMonth();
-    let days = to.getDate() - from.getDate();
-    let hours = to.getHours() - from.getHours();
-    let minutes = to.getMinutes() - from.getMinutes();
-    let seconds = to.getSeconds() - from.getSeconds();
+  /** Suma meses a una fecha sin desbordar (31 ene + 1 mes = 28/29 feb). */
+  function addMonths(date, n) {
+    const y = date.getFullYear();
+    const m = date.getMonth() + n;
+    const lastDay = new Date(y, m + 1, 0).getDate();
+    return new Date(
+      y,
+      m,
+      Math.min(date.getDate(), lastDay),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds()
+    );
+  }
 
-    if (seconds < 0) {
-      seconds += 60;
-      minutes -= 1;
+  /** Diferencia de calendario: años y meses completos, y el resto en d/h/m/s. */
+  function calendarDiff(from, to) {
+    let totalMonths = (to.getFullYear() - from.getFullYear()) * 12 + (to.getMonth() - from.getMonth());
+    let anchor = addMonths(from, totalMonths);
+    if (anchor > to) {
+      totalMonths -= 1;
+      anchor = addMonths(from, totalMonths);
     }
-    if (minutes < 0) {
-      minutes += 60;
-      hours -= 1;
-    }
-    if (hours < 0) {
-      hours += 24;
-      days -= 1;
-    }
-    if (days < 0) {
-      const prev = new Date(to.getFullYear(), to.getMonth(), 0);
-      days += prev.getDate();
-      months -= 1;
-    }
-    if (months < 0) {
-      months += 12;
-      years -= 1;
-    }
-    return { years, months, days, hours, minutes, seconds };
+    let rest = Math.floor((to - anchor) / 1000);
+    const days = Math.floor(rest / 86400);
+    rest %= 86400;
+    const hours = Math.floor(rest / 3600);
+    rest %= 3600;
+    const minutes = Math.floor(rest / 60);
+    const seconds = rest % 60;
+    return {
+      years: Math.floor(totalMonths / 12),
+      months: totalMonths % 12,
+      days,
+      hours,
+      minutes,
+      seconds,
+    };
   }
 
   function pad(n) {
@@ -298,39 +306,51 @@
     const dialogCap = document.getElementById("lightbox-caption");
     const closeBtn = document.getElementById("lightbox-close");
     root.innerHTML = "";
+    let lastTrigger = null;
 
     CONFIG.gallery.forEach((photo) => {
+      const fig = document.createElement("figure");
+      fig.className = "gallery__item";
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "gallery__item";
+      btn.className = "gallery__open";
       btn.setAttribute("aria-label", `Ampliar: ${photo.alt}`);
-      const fig = document.createElement("figure");
       const frame = document.createElement("div");
       frame.className = "gallery__frame";
       const img = document.createElement("img");
       img.src = photo.src;
       img.alt = photo.alt;
       img.loading = "lazy";
-      img.addEventListener("error", () => {
-        img.src = CONFIG.placeholderImage;
-      });
+      img.decoding = "async";
+      // Si la foto no existe se usa el marcador (una sola vez, sin bucles).
+      img.addEventListener(
+        "error",
+        () => {
+          img.src = CONFIG.placeholderImage;
+        },
+        { once: true }
+      );
       frame.appendChild(img);
+      btn.appendChild(frame);
+      fig.appendChild(btn);
       if (photo.caption) {
         const cap = document.createElement("figcaption");
         cap.textContent = photo.caption;
-        fig.append(frame, cap);
-      } else {
-        fig.append(frame);
+        fig.appendChild(cap);
       }
-      btn.appendChild(fig);
       btn.addEventListener("click", () => {
+        lastTrigger = btn;
         dialogImg.src = img.src;
         dialogImg.alt = photo.alt;
         dialogCap.textContent = photo.caption;
         if (typeof dialog.showModal === "function") dialog.showModal();
         closeBtn.focus();
       });
-      root.appendChild(btn);
+      root.appendChild(fig);
+    });
+
+    dialog.addEventListener("close", () => {
+      if (lastTrigger) lastTrigger.focus();
     });
 
     closeBtn.addEventListener("click", () => dialog.close());
@@ -359,6 +379,10 @@
     function openLetter() {
       envelope.classList.add("is-open");
       envelope.setAttribute("aria-expanded", "true");
+      envelope.querySelector(".envelope__label").textContent = "Carta abierta";
+      window.setTimeout(() => {
+        letter.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      }, 450);
       letter.hidden = false;
       letter.style.animation = "none";
       void letter.offsetWidth;
@@ -367,6 +391,7 @@
 
     function closeLetter() {
       envelope.classList.remove("is-open");
+      envelope.querySelector(".envelope__label").textContent = "Abrir carta";
       envelope.setAttribute("aria-expanded", "false");
       letter.hidden = true;
       envelope.focus();
@@ -404,7 +429,7 @@
         setStatus("Sonando para ti", true);
         prompt.hidden = true;
       } catch (error) {
-        setStatus("Toca para reproducir", false);
+        setStatus(audio.error ? "La canción no está disponible" : "Toca para reproducir", false);
       }
     }
 
@@ -567,7 +592,7 @@
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.18 }
+      { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
     );
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 

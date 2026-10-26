@@ -42,16 +42,12 @@ Los cinco hitos de la línea del tiempo también son ejemplos. Cámbialos por re
 
 ## Fotografías
 
-Coloca las imágenes en `assets/images/` con estos nombres (o cambia las rutas en `CONFIG.gallery`):
+La galería tiene seis posiciones en `CONFIG.gallery`:
 
-- `assets/images/foto-1.jpg`
-- `assets/images/foto-2.jpg`
-- `assets/images/foto-3.jpg`
-- `assets/images/foto-4.jpg`
-- `assets/images/foto-5.jpg`
-- `assets/images/foto-6.jpg`
+- Posiciones 1 a 3: usan las fotos reales que ya están en `assets/images/` (`IMG-20251213-WA0054.jpg`, `IMG-20260101-WA0030.jpg`, `IMG-20260101-WA0031.jpg`), sin pie de foto. Escribe uno en `caption` si quieres.
+- Posiciones 4 a 6: apuntan a `assets/images/foto-4.jpg`, `foto-5.jpg` y `foto-6.jpg`. Mientras esos archivos no existan se muestra `placeholder-foto.svg`. Añade las fotos (o cambia las rutas) y reemplaza los pies de foto de ejemplo antes de compartir.
 
-Si un archivo no existe, se muestra `placeholder-foto.svg`. Actualiza también los pies de foto y los textos `alt`.
+Si un archivo no existe, se muestra `placeholder-foto.svg`. Actualiza también los textos `alt`.
 
 ## Música
 
