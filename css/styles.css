@@ -584,25 +584,29 @@ main {
 
 .counter {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.8rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.35rem, 1.6vw, 0.8rem);
   margin-top: 1.8rem;
 }
 
 .counter__item {
-  background: rgba(18, 8, 12, 0.72);
-  border: 1px solid rgba(196, 165, 116, 0.18);
-  border-radius: var(--radius);
-  padding: 1.1rem 0.6rem;
+  background: rgba(49, 11, 24, 0.78);
+  border: 1px solid rgba(196, 165, 116, 0.32);
+  border-radius: 12px;
+  padding: clamp(0.65rem, 2vw, 1rem) 0.3rem;
   text-align: center;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.counter__item--calendar {
+  display: none;
 }
 
 .counter__value {
   display: block;
   font-family: var(--font-serif);
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  color: var(--gold-soft);
+  font-size: clamp(1.15rem, 4vw, 2.35rem);
+  color: #f4e8dc;
 }
 
 .counter__value.is-tick {
@@ -616,10 +620,11 @@ main {
 
 .counter__label {
   display: block;
-  font-size: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: clamp(0.48rem, 1.7vw, 0.7rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #c58b9a;
 }
 
 .counter-note {
@@ -937,8 +942,18 @@ main {
 .finale__petals {
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
   overflow: hidden;
+}
+
+.finale__petals .petal {
+  background: radial-gradient(circle at 30% 30%, #f4c4ce, #a51f3d 72%);
+  animation-duration: 26s;
+}
+
+.finale__petals .heart-float {
+  animation-duration: 30s;
 }
 
 .finale__light {
@@ -946,6 +961,85 @@ main {
   inset: 10% 15%;
   background: radial-gradient(circle, rgba(201, 137, 154, 0.28), transparent 70%);
   z-index: -1;
+}
+
+.finale__flowers,
+.finale__sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.finale__flowers {
+  z-index: 0;
+}
+
+.finale__flower {
+  position: absolute;
+  height: auto;
+}
+
+.finale__flower--top-left {
+  width: clamp(180px, 25vw, 340px);
+  top: -3rem;
+  left: -2rem;
+  transform: rotate(-18deg);
+}
+
+.finale__flower--top-right {
+  width: clamp(150px, 21vw, 290px);
+  top: -3.5rem;
+  right: -1.5rem;
+  transform: scaleX(-1) rotate(-14deg);
+}
+
+.finale__flower--bottom-right {
+  width: clamp(220px, 32vw, 440px);
+  right: -3.5rem;
+  bottom: -4rem;
+  transform: rotate(-12deg);
+}
+
+.finale__sparkles {
+  z-index: 1;
+}
+
+.finale__sparkles span {
+  position: absolute;
+  width: 2px;
+  height: 14px;
+  border-radius: 2px;
+  background: rgba(232, 213, 181, 0.8);
+  box-shadow: 0 0 8px rgba(232, 213, 181, 0.65);
+  animation: finale-twinkle 3.8s ease-in-out infinite;
+}
+
+.finale__sparkles span::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 2px;
+  left: -6px;
+  top: 6px;
+  border-radius: 2px;
+  background: inherit;
+}
+
+.finale__sparkles span:nth-child(1) { top: 20%; left: 26%; }
+.finale__sparkles span:nth-child(2) { top: 30%; right: 25%; animation-delay: -1.3s; }
+.finale__sparkles span:nth-child(3) { top: 58%; left: 18%; animation-delay: -2.1s; }
+.finale__sparkles span:nth-child(4) { top: 68%; right: 17%; animation-delay: -0.7s; }
+.finale__sparkles span:nth-child(5) { top: 82%; left: 38%; animation-delay: -2.8s; }
+.finale__sparkles span:nth-child(6) { top: 15%; right: 42%; animation-delay: -1.8s; }
+
+@keyframes finale-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.65); }
+  50% { opacity: 0.85; transform: scale(1); }
+}
+
+.finale > :not(.finale__light):not(.finale__petals):not(.finale__flowers):not(.finale__sparkles) {
+  position: relative;
+  z-index: 2;
 }
 
 .finale__lead {
@@ -1050,10 +1144,6 @@ main {
 }
 
 @media (min-width: 720px) {
-  .counter {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
   .gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1111,6 +1201,32 @@ main {
   .section {
     width: min(920px, calc(100% - 1.4rem));
   }
+
+  .counter {
+    gap: 0.35rem;
+  }
+
+  .counter__item {
+    padding-inline: 0.2rem;
+  }
+
+  .finale__flower--top-left {
+    width: clamp(140px, 34vw, 220px);
+    top: -1.5rem;
+    left: -2.5rem;
+  }
+
+  .finale__flower--top-right {
+    width: clamp(130px, 30vw, 200px);
+    top: -1.5rem;
+    right: -2rem;
+  }
+
+  .finale__flower--bottom-right {
+    width: clamp(180px, 44vw, 300px);
+    right: -2.5rem;
+    bottom: -2rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1124,6 +1240,7 @@ main {
   .scanner.is-holding .scanner__scan,
   .scanner.is-complete,
   .counter__value.is-tick,
+  .finale__sparkles span,
   .letter,
   .hero__unlock-note.is-visible,
   .music-player.is-playing .music-player__icon span {
