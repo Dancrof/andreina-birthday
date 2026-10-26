@@ -1,55 +1,66 @@
-# Sorpresa para Andreína
+# Una sorpresa para Andreína
 
-Experiencia web de una sola página para celebrar los 34 años de Andreína. Se recorre con el scroll vertical nativo e incluye escáner de huellas, revelación, contador, razones, galería, recuerdos, carta, canción, pastel y cierre final.
+Página estática de una sola columna vertical, pensada como regalo de cumpleaños. No necesita backend ni frameworks.
 
-Los enlaces de anterior/siguiente usan anclas internas con desplazamiento suave. Las secciones permanecen en el documento y se pueden recorrer en cualquier orden; el escáner ofrece una transición directa a la revelación, pero no bloquea el desplazamiento.
+## Cómo verla
 
-## Ejecutar localmente
-
-1. Abre la carpeta en VS Code.
-2. Activa Live Server o sirve la carpeta localmente.
-3. Entra a la raíz del proyecto con tu navegador.
-
-Alternativa manual:
+Desde la carpeta del proyecto:
 
 ```bash
-cd /home/bryan/Documentos/andreina-birthday
-python3 -m http.server 8000
+python3 -m http.server 8080
 ```
 
-Luego abre:
+Abre `http://localhost:8080` en el navegador. También puedes abrir `index.html` directamente, aunque el audio y algunas rutas funcionan mejor con un servidor local.
 
-```
-http://localhost:8000
-```
+## Estructura
 
-## Personalizar la experiencia
+- `index.html` — marcado semántico de toda la experiencia
+- `css/styles.css` — diseño, animaciones y versión móvil
+- `js/main.js` — configuración y comportamiento
+- `assets/images/` — fotografías
+- `assets/audio/cancion.mp3` — música de fondo (añade el archivo)
 
-Toda la información editable se encuentra en:
+## Personalizar
 
-- `js/config.js`
+Edita el objeto `CONFIG` al inicio de `js/main.js`:
 
-Puedes modificar:
+| Campo | Uso |
+| --- | --- |
+| `recipientName`, `age`, `birthdayISO` | Nombre, edad y fecha del cumpleaños |
+| `relationshipStart` | Fecha real de inicio de la relación (`YYYY-MM-DD`) |
+| `relationshipStartIsExample` | Pásalo a `false` cuando la fecha ya no sea de ejemplo |
+| `welcomeParagraphs` | Texto de la sección de cumpleaños |
+| `letter` | Dedicatoria de la carta |
+| `timeline` | Recuerdos (fecha, título, descripción, imagen opcional) |
+| `gallery` | Rutas y pies de foto |
+| `musicSrc` | Ruta del audio |
+| `colors` | Paleta |
 
-- nombre del destinatario y del remitente
-- fecha del cumpleaños y edad
-- mensajes principales
-- efecto de pétalos (`petals.enabled`, colores, densidad y comportamiento por escena)
-- lista de razones
-- galería de imágenes
-- carta de amor
-- musica y rutas de audio
-- estados de la experiencia
+La fecha `relationshipStart` actual es **un ejemplo**. Sustitúyela antes de publicar.
 
-La lluvia romántica de pétalos se adapta al escáner, revelación, galería, carta, pastel y pantalla final. Se puede desactivar poniendo `petals.enabled` en `false`; también se desactiva automáticamente si el navegador tiene activada la preferencia de movimiento reducido.
+Los cinco hitos de la línea del tiempo también son ejemplos. Cámbialos por recuerdos auténticos.
 
-## Estructura principal
+## Fotografías
 
-- `index.html` — estructura de la experiencia
-- `css/` — estilos y responsive
-- `js/` — módulos de lógica
-- `assets/` — imágenes y audio
+Coloca las imágenes en `assets/images/` con estos nombres (o cambia las rutas en `CONFIG.gallery`):
 
-## Nota
+- `assets/images/foto-1.jpg`
+- `assets/images/foto-2.jpg`
+- `assets/images/foto-3.jpg`
+- `assets/images/foto-4.jpg`
+- `assets/images/foto-5.jpg`
+- `assets/images/foto-6.jpg`
 
-La página usa archivos estáticos y no requiere backend.
+Si un archivo no existe, se muestra `placeholder-foto.svg`. Actualiza también los pies de foto y los textos `alt`.
+
+## Música
+
+Añade `assets/audio/cancion.mp3` o cambia `musicSrc`. El navegador no reproducirá sonido hasta que haya una interacción (el lector de huella, el botón de música o el aviso posterior al desbloqueo). Si el archivo falta, la página sigue funcionando.
+
+## Lector de huella
+
+Es una **simulación visual**. No usa biometría del dispositivo ni guarda huellas. Hay que mantener pulsado unos 2,5 segundos; si se suelta antes, el progreso se reinicia. El desbloqueo se recuerda en `localStorage` solo como detalle opcional en el mismo aparato.
+
+## Publicar
+
+Sube la carpeta completa (HTML, CSS, JS y `assets`) a cualquier alojamiento estático: GitHub Pages, Netlify, un servidor propio, etc.
